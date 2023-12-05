@@ -40,7 +40,6 @@ app.get("/users", (req, res) => {
   }
 });
 
-
 app.post("/users", (req, res) => {
   try {
     const userList = readUsersFile();
@@ -63,6 +62,18 @@ app.get("/users/:id", (req, res) => {
   const filteredUser = userList.find((user) => user.id == id);
   console.log(filteredUser);
   res.send(filteredUser);
+});
+
+app.get("/users/:id/geo", (req, res) => {
+  const userList = readUsersFile();
+  const id = req.params.id;
+  const filteredUser = userList.find((user) => user.id == id);
+  const geo = {
+    lat: filteredUser.address.geo.lat,
+    lng: filteredUser.address.geo.lng,
+  };
+  mapsLink = `https://www.google.com/maps/search/?api=1&query=${geo.lat},${geo.lng}`;
+  res.send({ message: "success", geo, mapsLink });
 });
 
 app.listen(port, () => {

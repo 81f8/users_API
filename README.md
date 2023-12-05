@@ -109,4 +109,4 @@ GET http://localhost:3000/users/1
 
 ## Conclusion
 
-You have successfully set up and used the User API. Refer to the provided examples and adjust the requests according to your needs. For any issues or questions, refer to the [repository](<repository-url>) or contact the API maintainer.
+You have successfully set up and used the User API. Refer to the provided examples and adjust the requests according to your needs. For any issues or questions, refer to the [repository](<https://github.com/81f8/users_API>).
