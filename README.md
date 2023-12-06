@@ -99,6 +99,18 @@ Retrieve a specific user by their ID.
 GET http://localhost:3000/users/1
 ```
 
+### 4. GET /users/:id/geo
+
+Retrieve a specific user location and maps link by their ID.
+
+**Parameters:**
+- `id` (integer): ID of the user to retrieve.
+
+**Example:**
+```bash
+GET http://localhost:3000/users/1/geo
+```
+
 ## Error Handling
 
 - If an error occurs during the API operations, an HTTP 500 status code will be returned with an error message in the response body.

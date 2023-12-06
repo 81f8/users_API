@@ -23,7 +23,7 @@
     }
   },
   {
-    "id": 1,
+    "id": 2,
     "name": "Leanne",
     "username": "Antonette",
     "email": "Shanna@melissa.tv",
@@ -228,30 +228,5 @@
       "catchPhrase": "Centralized empowering task-force",
       "bs": "target end-to-end models"
     }
-  },
-  {
-    "name": "salam",
-    "email": "sssssssssssssssssssss",
-    "id": 11
-  },
-  {
-    "name": "saaalam",
-    "email": "sssssssssssssssssssss",
-    "id": 12
-  },
-  {
-    "name": "saaalam",
-    "email": "sssssssssssssssssssss",
-    "id": 13
-  },
-  {
-    "name": "saaalam",
-    "email": "sssssssssssssssssddssss",
-    "id": 14
-  },
-  {
-    "name": "sasedrtfgyaalam",
-    "email": "sssssssssssssssssddssss",
-    "id": 15
   }
 ]

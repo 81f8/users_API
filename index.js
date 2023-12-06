@@ -32,7 +32,7 @@ const filterUsers = (list, filters) => {
 app.get("/users", (req, res) => {
   try {
     const userList = readUsersFile();
-    const filters = req.query; // Get filters from query parameters
+    const filters = req.query;
     const filteredUsers = filterUsers(userList, filters);
     res.json(filteredUsers);
   } catch (error) {
@@ -64,6 +64,54 @@ app.get("/users/:id", (req, res) => {
   res.send(filteredUser);
 });
 
+app.put("/users/:id", (req, res) => {
+  try {
+    const userList = readUsersFile();
+    const id = req.params.id;
+    const userIndex = userList.findIndex((user) => user.id == id);
+
+    if (userIndex === -1) {
+      res.status(404).json({ error: "User not found" });
+      return;
+    }
+
+    const updatedUser = req.body;
+    userList[userIndex] = { ...userList[userIndex], ...updatedUser };
+
+    fs.writeFileSync("users.json", JSON.stringify(userList, null, 2), "utf-8");
+    res.json({ message: "success", user: userList[userIndex] });
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.delete("/users/:id", (req, res) => {
+  try {
+    const userList = readUsersFile();
+    const id = req.params.id;
+
+    const updatedUsers = userList.filter((user) => user.id != id);
+
+    if (updatedUsers.length === userList.length) {
+      res.status(404).json({ error: "User not found" });
+      return;
+    }
+
+    const deletedUser = userList.find((user) => user.id == id);
+
+    fs.writeFileSync(
+      "users.json",
+      JSON.stringify(updatedUsers, null, 2),
+      "utf-8"
+    );
+    res.json({ message: "success", user: deletedUser });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 app.get("/users/:id/geo", (req, res) => {
   const userList = readUsersFile();
   const id = req.params.id;
@@ -74,6 +122,26 @@ app.get("/users/:id/geo", (req, res) => {
   };
   mapsLink = `https://www.google.com/maps/search/?api=1&query=${geo.lat},${geo.lng}`;
   res.send({ message: "success", geo, mapsLink });
+});
+
+app.get("/users/first", (_req, res) => {
+  try {
+    const userList = readUsersFile();
+    console.log(userList);
+    console.log(userList[0]);
+    res.json(userList[0]);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.get("/users/last", (_req, res) => {
+  try {
+    const userList = readUsersFile();
+    res.json(userList[userList.length - 1]);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 app.listen(port, () => {
